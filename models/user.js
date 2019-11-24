@@ -3,6 +3,9 @@ let crypto = require('crypto');
 let normalizeEmail = require('express-validator/node_modules/validator/lib/normalizeEmail.js');
 
 let userSchema = mongoose.Schema({
+  locale: {type: String, default: 'fr'},
+  logo: {type: String},
+  name: {type: String},
   roles: [
     {
       _id: false,
