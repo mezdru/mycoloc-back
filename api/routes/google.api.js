@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var GoogleUserController = require('../controllers/googleUser.controller');
-var Authorization = require('./authorization');
+var GoogleUserController = require('../../controllers/googleUser.controller');
+var Authorization = require('../authorization');
 var passport = require('passport');
 
 const RESOURCE_MODEL = 'googleUser';
 
 
 router.use((req, res, next) => {
-  req.backflipAuth = req.backflipAuth || {};
-  req.backflipAuth.resource = {
+  req.back = req.back || {};
+  req.back.resource = {
     model: RESOURCE_MODEL
   }
   next();

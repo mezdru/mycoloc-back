@@ -5,9 +5,9 @@ exports.getConnectionLogs = async (req, res, next) => {
   .then(connectionLogs => {
 
     if(connectionLogs.length === 0) {
-      req.backflipAuth = {message: 'connectionLogs not found', status: 404};
+      req.back = {message: 'connectionLogs not found', status: 404};
     } else {
-      req.backflipAuth = {message: 'connectionLogs found', status: 200, data: connectionLogs};
+      req.back = {message: 'connectionLogs found', status: 200, data: connectionLogs};
     }
 
     return next();
@@ -20,6 +20,6 @@ exports.getLatestConnection = async (req, res, next) => {
   var TenMinutesAgo = new Date( Date.now() - 1000 * 60 * 10 );
   let connectionLog = await ConnectionLog.findOne({user: req.user._id, created: {$lt: TenMinutesAgo}}).sort({created: -1}).catch(e => null);
 
-  req.backflipAuth = {status: 200, message: 'Latest connection log found.', data: connectionLog};
+  req.back = {status: 200, message: 'Latest connection log found.', data: connectionLog};
   return next();
 }

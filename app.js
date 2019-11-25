@@ -141,14 +141,8 @@ let passwordReset = require('./api/password/password');
 app.use('/password/reset', passwordReset);
 
 
-// API GOOGLE
-let apiGoogle = require('./api/google.api');
-app.use('/api/googleUsers', apiGoogle);
-
-
-// API INVITATION CODE
-let apiInvitationCode = require('./api/invitationCode.api');
-app.use('/api/invitationCodes', apiInvitationCode);
+let api = require('./api/api');
+app.use('/api', api);
 
 
 // catch 404 and forward to error handler

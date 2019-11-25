@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var ConnectionLogController = require('../controllers/connectionLog.controller');
-var Authorization = require('./authorization');
+var ConnectionLogController = require('../../controllers/connectionLog.controller');
+var Authorization = require('../authorization');
 var passport = require('passport');
 
 const RESOURCE_MODEL = 'connectionLog';
 
 router.use((req, res, next) => {
-  req.backflipAuth = req.backflipAuth || {};
-  req.backflipAuth.resource = {
+  req.back = req.back || {};
+  req.back.resource = {
     model: RESOURCE_MODEL
   }
 

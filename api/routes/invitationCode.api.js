@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var InvitationCodeController = require('../controllers/invitationCode.controller');
-var AuthorizationOrg = require('./middleware_authorization');
-var Authorization = require('./authorization');
+var InvitationCodeController = require('../../controllers/invitationCode.controller');
+var AuthorizationOrg = require('../middleware_authorization');
+var Authorization = require('../authorization');
 var passport = require('passport');
 
 const RESOURCE_MODEL = 'invitationCode';
 
 router.use((req, res, next) => {
-  req.backflipAuth = req.backflipAuth || {};
-  req.backflipAuth.resource = {
+  req.back = req.back || {};
+  req.back.resource = {
     model: RESOURCE_MODEL
   }
 

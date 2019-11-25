@@ -7,13 +7,13 @@ exports.superadminOnly = async (req, res, next) => {
 // Superadmin OR Client with matching scope
 exports.superadminOrClient = async (req, res, next) => {
   if(req.user.superadmin) return next();
-  if(req.user.clientId && req.user.scope.find(scopeElt => scopeElt === req.backflipAuth.resource.model)) return next();
+  if(req.user.clientId && req.user.scope.find(scopeElt => scopeElt === req.back.resource.model)) return next();
   return response403(res);
 }
 
 // User who owns the resource only
 exports.resUserOwnOnly = async (req, res, next) => {
-  var resData = req.backflipAuth;
+  var resData = req.back;
 
   if(req.user.superadmin || (resData.owner && resData.owner.equals(req.user._id)))
     return res.status(resData.status).json({message: resData.message, data: resData.data})
@@ -22,7 +22,7 @@ exports.resUserOwnOnly = async (req, res, next) => {
 }
 
 exports.resWithData = async (req, res, next) => {
-  var resData = req.backflipAuth;
+  var resData = req.back;
   return res.status(resData.status || 200).json({message: resData.message, data: resData.data})
 }
 
@@ -36,6 +36,12 @@ exports.adminOnly = async (req, res, next) => {
   }
 
   return response403(res);
+}
+
+exports.currentUser = async (req, res, next) => {
+  if(req.user.superadmin) return next();
+  if(req.user._id.equals(req.params.id)) return next();
+  return res403(res);
 }
 
 let response403 = (res) => {
